@@ -1,32 +1,29 @@
 import { Router } from 'express';
-import { cycleController } from './medicine.controller';
+import { MedicineController } from './medicine.controller';
 import auth from '../../middlewares/auth';
 import { USER_ROLE } from '../users/user.const';
-import { BiCycleProductValidationSchema } from './medicine.validation';
+import { MedicineValidationSchema } from './medicine.validation';
 import validateRequest from '../../middlewares/validateRequest';
 
-const BiCycleRouter = Router();
+const MedicineRouter = Router();
 
-// biCycleRouter.post('/biCycle-create', cycleController.createBiCycle);
-BiCycleRouter.post(
+MedicineRouter.post(
   '/',
   auth(USER_ROLE.admin),
-  validateRequest(
-    BiCycleProductValidationSchema.createBiCycleProductValidationSchema,
-  ),
-  cycleController.createBiCycle,
+  validateRequest(MedicineValidationSchema.createMedicineValidationSchema),
+  MedicineController.createMedicine,
 );
-BiCycleRouter.get('/:id', cycleController.getSingleBiCycle);
-BiCycleRouter.patch(
+MedicineRouter.get('/:id', MedicineController.getSingleMedicine);
+MedicineRouter.patch(
   '/:productId',
   auth(USER_ROLE.admin),
-  cycleController.updateBiCycle,
+  MedicineController.updateMedicine,
 );
-BiCycleRouter.delete(
+MedicineRouter.delete(
   '/:productId',
   auth(USER_ROLE.admin),
-  cycleController.deleteBiCycle,
+  MedicineController.deleteMedicine,
 );
-BiCycleRouter.get('/', cycleController.getBiCycle);
+MedicineRouter.get('/', MedicineController.getMedicines);
 
-export default BiCycleRouter;
+export default MedicineRouter;

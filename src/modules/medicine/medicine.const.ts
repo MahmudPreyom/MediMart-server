@@ -1,7 +1,7 @@
-export const BicycleSearchableFields = [
-  'name',
-  'brand',
-  'price',
-  'type',
-  'quantity',
-];
+// export const MedicineSearchableFields = [
+//   'name',
+//   'brand',
+//   'price',
+//   'type',
+//   'quantity',
+// ];

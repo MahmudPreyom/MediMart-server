@@ -1,32 +1,37 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Schema, model } from 'mongoose';
-import { TOrderBiCycle } from './medicine-order.interface';
+import { TOrderMedicine } from './medicine-order.interface';
+// import Medicine from '../medicine/medicine.model';
 
-const OrderBiCycleSchema = new Schema<TOrderBiCycle>(
+const OrderMedicineSchema: Schema = new Schema<TOrderMedicine>(
   {
     email: { type: String, required: false },
-    customer: { type: Schema.Types.ObjectId, ref: 'User' },
-    product: { type: Schema.Types.ObjectId, unique: false, ref: 'BiCycle' },
-    quantity: {
-      type: Number,
-      required: true,
-    },
-    totalPrice: {
-      type: Number,
-      required: true,
-    },
+    customer: { type: Schema.ObjectId, ref: 'User', required: true },
+    product: { type: Schema.ObjectId, ref: 'Medicine', required: true },
+    quantity: { type: Number, required: [true, 'Quantity is required.'] },
+    totalPrice: { type: Number, required: [true, 'Total price is required.'] },
     status: {
       type: String,
       enum: ['Pending', 'Paid', 'Shipped', 'Completed', 'Cancelled'],
       default: 'Pending',
     },
+    prescriptionImage: {
+      type: String,
+      default: false,
+      // required: async function (this: any) {
+      //   const medicine = await Medicine.findById(this.product);
+      //   return medicine?.prescriptionRequired || false;
+    },
+    // }
     transaction: {
-      id: String,
-      transactionStatus: String,
-      bank_status: String,
-      sp_code: String,
-      sp_message: String,
-      method: String,
-      date_time: String,
+      id: { type: String, required: false },
+      transactionStatus: { type: String, required: false },
+      bank_status: { type: String, required: false },
+      sp_code: { type: String, required: false },
+      sp_message: { type: String, required: false },
+      method: { type: String, required: false },
+      date_time: { type: String, required: false },
     },
   },
   {
@@ -34,9 +39,8 @@ const OrderBiCycleSchema = new Schema<TOrderBiCycle>(
   },
 );
 
-export const OrderBiCycleModel = model<TOrderBiCycle>(
-  'Order',
-  OrderBiCycleSchema,
+const OrderMedicine = model<TOrderMedicine>(
+  'OrderMedicine',
+  OrderMedicineSchema,
 );
-
-// export default OrderBiCycleModel;
+export default OrderMedicine;

@@ -1,34 +1,35 @@
 import { Request, Response } from 'express';
-import { biCycleProductService } from './medicine.service';
+import { MedicineService } from './medicine.service';
 
-const createBiCycle = async (req: Request, res: Response) => {
+const createMedicine = async (req: Request, res: Response) => {
   try {
     const data = req.body;
-    const result = await biCycleProductService.createBiCycleProduct(data);
+    const result = await MedicineService.createMedicineProduct(data);
     res.json({
-      message: 'Bicycle created successfully',
+      message: 'Medicine created successfully',
       success: true,
       data: result,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Something Went to wrong',
-      error: error,
+      message: 'Something went wrong',
+      error,
     });
   }
 };
 
-const getBiCycle = async (req: Request, res: Response) => {
+const getMedicines = async (req: Request, res: Response) => {
   try {
-    const { searchTerm, sortBy, sortOrder} = req.query;
-    const result = await biCycleProductService.getBiCycle(searchTerm as string,
+    const { searchTerm, sortBy, sortOrder } = req.query;
+    const result = await MedicineService.getMedicines(
+      searchTerm as string,
       sortBy as string,
-      sortOrder as string);
-    // console.log(searchTerm);
+      sortOrder as string,
+    );
 
     res.send({
-      message: 'Bicycles retrieved successfully',
+      message: 'Medicines retrieved successfully',
       status: true,
       data: result,
     });
@@ -41,50 +42,50 @@ const getBiCycle = async (req: Request, res: Response) => {
   }
 };
 
-const getSingleBiCycle = async (req: Request, res: Response) => {
+const getSingleMedicine = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
-    const result = await biCycleProductService.getSingleBiCycle(id);
+    const result = await MedicineService.getSingleMedicine(id);
     res.send({
-      message: 'Bicycle retrieved successfully',
+      message: 'Medicine retrieved successfully',
       status: true,
       data: result,
     });
   } catch (error) {
     res.json({
       status: false,
-      message: 'Something went to wrong',
+      message: 'Something went wrong',
       error,
     });
   }
 };
 
-const updateBiCycle = async (req: Request, res: Response) => {
+const updateMedicine = async (req: Request, res: Response) => {
   try {
-    const biCycleId = req.params.productId;
+    const medicineId = req.params.productId;
     const body = req.body;
-    const result = await biCycleProductService.updateBiCycle(biCycleId, body);
+    const result = await MedicineService.updateMedicine(medicineId, body);
     res.send({
-      message: 'Bicycle updated successfully',
+      message: 'Medicine updated successfully',
       status: true,
       data: result,
     });
   } catch (error) {
     res.json({
       status: false,
-      message: 'Something went to wrong',
+      message: 'Something went wrong',
       error,
     });
   }
 };
 
-const deleteBiCycle = async (req: Request, res: Response) => {
+const deleteMedicine = async (req: Request, res: Response) => {
   try {
-    const biCycleId = req.params.productId;
-    await biCycleProductService.deleteBiCycle(biCycleId);
+    const medicineId = req.params.productId;
+    await MedicineService.deleteMedicine(medicineId);
 
     res.send({
-      message: 'Bicycle deleted successfully',
+      message: 'Medicine deleted successfully',
       status: true,
       data: {},
     });
@@ -97,10 +98,10 @@ const deleteBiCycle = async (req: Request, res: Response) => {
   }
 };
 
-export const cycleController = {
-  createBiCycle,
-  getBiCycle,
-  getSingleBiCycle,
-  updateBiCycle,
-  deleteBiCycle,
+export const MedicineController = {
+  createMedicine,
+  getMedicines,
+  getSingleMedicine,
+  updateMedicine,
+  deleteMedicine,
 };

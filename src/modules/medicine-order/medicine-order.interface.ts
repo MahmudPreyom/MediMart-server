@@ -1,12 +1,13 @@
 import { Types } from 'mongoose';
 
-export type TOrderBiCycle = {
+export type TOrderMedicine = {
   email?: string;
   customer: Types.ObjectId;
   product: Types.ObjectId;
   quantity: number;
   totalPrice: number;
   status?: 'Pending' | 'Paid' | 'Shipped' | 'Completed' | 'Cancelled';
+  prescriptionImage?: string;
   transaction?: {
     id: string;
     transactionStatus: string;
@@ -16,5 +17,4 @@ export type TOrderBiCycle = {
     method: string;
     date_time: string;
   };
-  // orderStatus: ''
 };
