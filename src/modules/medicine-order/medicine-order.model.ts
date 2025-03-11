@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Schema, model } from 'mongoose';
 import { TOrderMedicine } from './medicine-order.interface';
 // import Medicine from '../medicine/medicine.model';
