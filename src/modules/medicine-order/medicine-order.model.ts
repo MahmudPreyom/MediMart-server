@@ -1,4 +1,3 @@
-
 import { Schema, model } from 'mongoose';
 import { TOrderMedicine } from './medicine-order.interface';
 // import Medicine from '../medicine/medicine.model';

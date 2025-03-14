@@ -16,7 +16,7 @@ const getMedicines = async (
   if (searchTerm) {
     const regex = new RegExp(searchTerm, 'i');
     query = {
-      $or: [{ name: regex }, { company: regex }, { type: regex }],
+      $or: [{ name: regex }, { symptoms: { $elemMatch: { $regex: regex } } }],
     };
   }
 

@@ -5,11 +5,18 @@ const createMedicineValidationSchema = z.object({
     name: z.string({ required_error: 'Name is required.' }),
     company: z.string({ required_error: 'Company is required.' }),
     image: z.string({ required_error: 'Image is required.' }),
+    // image: z.string().optional(),
     price: z
       .number({ required_error: 'Price is required.' })
       .positive('Price must be a positive number.'),
     type: z.string({ required_error: 'Type is required.' }),
+    symptoms: z
+      .array(z.string())
+      .nonempty({ message: 'At least one symptom is required' }),
     description: z.string({ required_error: 'Description is required.' }),
+    manufacturerDetails: z.string({
+      required_error: 'Manufacturer details is required.',
+    }),
     quantity: z
       .number({ required_error: 'Quantity is required.' })
       .int('Quantity must be an integer.')
@@ -37,7 +44,9 @@ const updateMedicineValidationSchema = z.object({
     image: z.string().optional(),
     price: z.number().positive('Price must be a positive number.').optional(),
     type: z.string().optional(),
+    symptoms: z.string().optional(),
     description: z.string().optional(),
+    manufacturerDetails: z.string().optional(),
     quantity: z
       .number()
       .int('Quantity must be an integer.')
